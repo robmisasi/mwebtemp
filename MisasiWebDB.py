@@ -7,13 +7,13 @@ def get_house_temp():
     data = r.json()
     return data["temperature"]
 
-def init_db(db="mweb.db", table="temps"):
+def init_db(db="/home/pi/mweb.db", table="temps"):
     con = lite.connect(db)
     with con:
         cur = con.cursor()
         cur.execute("CREATE TABLE " + table + "(Time TEXT, Temp INT)")
 
-def insert_temp(db="mweb.db", table="temps"):
+def insert_temp(db="/home/pi/mweb.db", table="temps"):
     temp = get_house_temp()
 
     time_str = datetime.datetime.now().isoformat('T')
@@ -22,7 +22,7 @@ def insert_temp(db="mweb.db", table="temps"):
         cur = con.cursor()
         cur.execute("INSERT INTO " + table + " VALUES(\"" + time_str + "\" , " + str(temp) + ")")
 
-def print_all_temps(db="mweb.db", table="temps"):
+def print_all_temps(db="/home/pi/mweb.db", table="temps"):
     con = lite.connect(db)
 
     with con:
